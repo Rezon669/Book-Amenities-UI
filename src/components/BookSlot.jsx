@@ -65,7 +65,7 @@ export default function BookSlot() {
         body: JSON.stringify({
           userId,
           amenityName,
-          date: formatDate(date),
+          bookingDate: formatDate(date),
           startTime,
           endTime,
         }),
