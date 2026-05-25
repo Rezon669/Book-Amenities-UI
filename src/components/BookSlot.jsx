@@ -56,7 +56,7 @@ export default function BookSlot() {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/book-amenities/booking", {
+      const response = await fetch("http://localhost:8080/api/book-amenities/booking", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,90 +89,86 @@ export default function BookSlot() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-900 via-black to-gray-900 p-6 text-white w-[500px] ">
+    <div>
+      
+      <div className="bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-xl border border-white/20 w-full max-w-lg mt-10">
+        <h2 className="text-3xl font-bold text-center mb-6">Book a Slot</h2>
 
-      {/* Title */}
-      <h2 className="text-2xl font-bold text-center mb-6">Book Slot</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="text-sm">Amenity</label>
+            <select
+              className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/30 text-white text-sm"
+              value={amenityName}
+              onChange={(e) => setAmenityName(e.target.value)}
+              required
+            >
+              <option value="">Select amenity</option>
+              {amenities.map((a) => (
+                <option key={a} value={a}>
+                  {a}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white/10 backdrop-blur-lg p-6 rounded-xl shadow-xl border border-white/20 max-w-3xl w-full mx-auto space-y-3">
+          <div>
+            <label className="text-sm">Date</label>
+            <input
+              type="date"
+              min={minDate}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/30 text-white text-sm"
+              required
+            />
+          </div>
 
-        {/* Amenity Dropdown */}
-        <div>
-          <label className="block mb-0.5 text-sm">Amenity</label>
-          <select
-            className="w-full mx-auto p-1 rounded-lg bg-black/40 border border-white/30 text-white"
-            value={amenityName}
-            onChange={(e) => setAmenityName(e.target.value)}
+          <div>
+            <label className="text-sm">Start Time</label>
+            <select
+              className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/30 text-white text-sm"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              required
+            >
+              <option value="">Select time</option>
+              {timeSlots.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="text-sm">End Time</label>
+            <select
+              className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/30 text-white text-sm"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+              required
+            >
+              <option value="">Select time</option>
+              {timeSlots.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {errorMsg && <p className="text-red-400 text-center text-sm">{errorMsg}</p>}
+          {successMsg && <p className="text-green-400 text-center text-sm">{successMsg}</p>}
+
+          <button
+            type="submit"
+            className="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg shadow text-center text-sm font-semibold"
           >
-            <option value="">Select Amenity</option>
-            {amenities.map((a) => (
-              <option key={a} value={a}>
-                {a}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Date Input */}
-        <div>
-          <label className="max-w-lg mx-auto text-sm">Date</label>
-          <input
-            type="date"
-            min={minDate}
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="w-full p-1 rounded-lg bg-black/40 border border-white/30 text-white"
-          />
-        </div>
-
-        {/* Start Time */}
-        <div>
-          <label className="max-w-lg mx-auto text-sm">Start Time</label>
-          <select
-            className="w-full p-1 rounded-lg bg-black/40 border border-white/30 text-white"
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
-          >
-            <option value="">Select Time</option>
-            {timeSlots.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* End Time */}
-        <div>
-          <label className="max-w-lg mx-auto text-sm">End Time</label>
-          <select
-            className="w-full p-1 rounded-lg bg-black/40 border border-white/30 text-white"
-            value={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
-          >
-            <option value="">Select Time</option>
-            {timeSlots.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Error */}
-        {errorMsg && <p className="text-red-400 text-center">{errorMsg}</p>}
-        {successMsg && <p className="text-green-400 text-center">{successMsg}</p>}
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full h-[50px] py-3 text-lg rounded-xl bg-blue-600 hover:bg-blue-700"
-        >
-          {loading ? "Booking..." : "Book Now"}
-        </button>
-      </form>
+            {loading ? "Booking..." : "Book Now"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
