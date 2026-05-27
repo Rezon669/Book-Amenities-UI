@@ -38,7 +38,7 @@ export default function Signup() {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/book-amenities/user", {
+      const response = await fetch("http://localhost:8080/api/book-amenities/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -36,7 +36,7 @@ export default function MyBookings() {
   // Fetch bookings
   const fetchPastBookings = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/book-amenities/booking/past/${userId}`, {
+      const res = await fetch(`http://localhost:8080/api/book-amenities/booking/past/${userId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setPastBookings(await res.json());
@@ -47,7 +47,7 @@ export default function MyBookings() {
 
   const fetchCurrentBookings = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/book-amenities/booking/upcoming/${userId}`, {
+      const res = await fetch(`http://localhost:8080/api/book-amenities/booking/upcoming/${userId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setCurrentBookings(await res.json());
@@ -61,7 +61,7 @@ export default function MyBookings() {
     if (!window.confirm("Are you sure you want to delete this booking?")) return;
 
     const res = await fetch(
-      `http://localhost:8080/book-amenities/booking/${bookingId}/user/${userId}`,
+      `http://localhost:8080/api/book-amenities/booking/${bookingId}/user/${userId}`,
       {
         method: "DELETE",
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -89,7 +89,7 @@ export default function MyBookings() {
 
     try {
       const res = await fetch(
-        `http://localhost:8080/book-amenities/booking/${editBooking.bookingId}`,
+        `http://localhost:8080/api/book-amenities/booking/${editBooking.bookingId}`,
         {
           method: "PUT",
           headers: {
@@ -121,7 +121,7 @@ export default function MyBookings() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-black to-gray-900 text-white p-6">
+    <div >
 
       {/* Tabs */}
       <div className="flex justify-center gap-6 mt-6">
