@@ -33,6 +33,7 @@ export default function Dashboard() {
       // Clear local storage
       localStorage.removeItem("userId");
       localStorage.removeItem("token");
+      sessionStorage.removeItem("conversationId");
 
       // Navigate to home page
       navigate("/");
@@ -140,6 +141,13 @@ export default function Dashboard() {
 
     setLoading(true);
 
+    let conversationId = sessionStorage.getItem("conversationId");
+
+    if (!conversationId) {
+      conversationId = crypto.randomUUID();
+      sessionStorage.setItem("conversationId", conversationId);
+    }
+
     try {
 
       const token = localStorage.getItem("token");
@@ -154,7 +162,8 @@ export default function Dashboard() {
           },
           body: JSON.stringify({
             query: currentMessage,
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem("userId"),
+            conversationId: sessionStorage.getItem("conversationId")
           })
         }
       );
