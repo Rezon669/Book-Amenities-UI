@@ -153,17 +153,6 @@ npm run lint      # Run ESLint
 
 ---
 
-## ⚠️ Known Limitations / Roadmap
-
-- **Backend URL is hardcoded** (`http://localhost:8080`) inside every component that calls the API. Before deploying anywhere beyond localhost, extract this into a Vite env variable (e.g. `import.meta.env.VITE_API_BASE_URL`) with a `.env` file.
-- **JWT stored in `localStorage`** — convenient for a demo, but vulnerable to XSS token theft compared to an HttpOnly cookie. Worth calling out as a deliberate trade-off if you present this project, and a good candidate to harden later.
-- **No route guarding** — `/dashboard`, `/book`, and `/bookings` are reachable directly by URL without checking for a valid token; an unauthenticated user would just get failed API calls rather than a redirect to `/login`. A simple `<ProtectedRoute>` wrapper would fix this.
-- **No global error boundary or toast system** — errors currently surface via inline text or `window.alert()`/`window.confirm()`, which works but isn't very polished.
-- **No automated tests** (no Jest/Vitest/RTL setup yet).
-- Planned: environment-based API config, protected routes, replace `alert()`/`confirm()` with a proper UI toast/dialog system, loading skeletons instead of plain "..." text states.
-
----
-
 ## 📄 License
 
 MIT — feel free to use this as a reference implementation for a React + Spring AI chatbot-integrated booking UI.
